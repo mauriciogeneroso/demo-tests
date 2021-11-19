@@ -5,16 +5,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/hello")
-public class HelloController {
+@RequestMapping("/secured")
+public class SecuredController {
 
     @GetMapping
     public String hello() {
-        return "Hello";
-    }
-
-    @GetMapping(path = "/sub")
-    public String subHello() {
-        return "sub-hello";
+        return "Secured";
     }
 }
