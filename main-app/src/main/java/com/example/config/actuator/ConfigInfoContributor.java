@@ -1,5 +1,6 @@
-package com.example;
+package com.example.config.actuator;
 
+import com.example.properties.AppProperties;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -15,11 +16,11 @@ public class ConfigInfoContributor implements InfoContributor {
     private String deploymentEnvironment;
 
     @Autowired
-    private ActuatorAppProperties actuatorAppProperties;
+    private AppProperties actuatorAppProperties;
 
     @Override
     public void contribute(Info.Builder builder) {
-        //log.info("Including details to InfoContributor");
+        // log.info("Including details to InfoContributor");
         builder.withDetail("environment", deploymentEnvironment);
         builder.withDetail("configuration", actuatorAppProperties.create());
     }

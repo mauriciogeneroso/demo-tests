@@ -1,19 +1,19 @@
 package com.example.properties;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.stereotype.Component;
 
-import java.util.HashMap;
 import java.util.Map;
+
 
 @Getter
 @Setter
-@ConfigurationProperties(prefix = "ovp.logging")
+@Component
+@ConfigurationProperties(prefix = "app.cassandra.meo")
 public class LoggingProperties {
 
-    @JsonIgnore
-    private Map<String, String> encryptionFields = new HashMap<>();
+    private Map<String, String> encryptionFields;
 }
 
