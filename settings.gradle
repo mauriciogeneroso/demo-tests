@@ -1,1 +1,10 @@
 rootProject.name = 'demo'
+
+include "main-app"
+
+def configModules = ['actuator-config']
+
+configModules.forEach { module ->
+    include ":${module}"
+    project(":${module}").projectDir = new File(rootProject.projectDir, "${configModuleSourcesDir}/${module}")
+}
