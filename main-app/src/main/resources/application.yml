@@ -4,27 +4,23 @@ management:
       base-path: /private
       exposure.include: info, health, status, prometheus
 
-cassandra:
-  contact-points: ${CASSANDRA_MEO_HOSTS:localhost}
-  port: ${CASSANDRA_PORT:9042}
-  username: cassandra
-  password: ${CASSANDRA_PASSWORD:cassandra}
-  keyspace: ${CASSANDRA_MEO_KEYSPACE:meo}
-  cql-migrate-directory: ${CASSANDRA_MEO_DIRECTORY:cql/target}
-  wait-interval: 5000
-  connect-timeout: 1000
-  read-timeout: 500
-  skip-migration: ${CASSANDRA_SKIP_MIGRATION:false}
+app:
+  meo:
+    cassandra:
+      contact-points: ${CASSANDRA_MEO_HOSTS:localhost}
+      port: ${CASSANDRA_PORT:9042}
+      username: cassandra
+      password: ${CASSANDRA_PASSWORD:cassandra}
+      keyspace: ${CASSANDRA_MEO_KEYSPACE:meo}
+      cql-migrate-directory: ${CASSANDRA_MEO_DIRECTORY:cql/target}
+      wait-interval: 5000
+      connect-timeout: 1000
+      read-timeout: 500
+      skip-migration: ${CASSANDRA_SKIP_MIGRATION:false}
 
-ovp:
-  logging:
-    encryptionFields:
-      MVPD_DATA_HEADER: ${MVPD_DATA_HEADER_ENCRYPTION_KEY:abc}
-      OAT: ${OAT_LOGGING_ENCRYPTION_KEY:abc}
-      SYNACOR_CLOUD_ACCOUNT_ID: ${SYNACOR_CLOUD_ACCOUNT_ID_ENCRYPTION_KEY:abc}
-
-#Simple properties
-mail:
-  hostname: host@mail.com
-  port: 9000
-  from: mailer@mail.com
+  ovp:
+    logging:
+      encryptionFields:
+        MVPD_DATA_HEADER: ${MVPD_DATA_HEADER_ENCRYPTION_KEY:abc}
+        OAT: ${OAT_LOGGING_ENCRYPTION_KEY:abc}
+        SYNACOR_CLOUD_ACCOUNT_ID: ${SYNACOR_CLOUD_ACCOUNT_ID_ENCRYPTION_KEY:abc}
