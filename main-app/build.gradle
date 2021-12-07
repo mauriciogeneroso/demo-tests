@@ -13,11 +13,10 @@ repositories {
 }
 
 dependencies {
-	//implementation project(":actuator-config")
+	implementation project(":actuator-config")
 
 	implementation 'org.projectlombok:lombok:1.18.20'
 	implementation 'org.springframework.boot:spring-boot-starter-web'
-	implementation 'org.springframework.boot:spring-boot-starter-actuator:2.3.4.RELEASE'
 
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 }
