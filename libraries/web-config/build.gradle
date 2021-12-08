@@ -9,10 +9,8 @@ repositories {
 }
 
 dependencies {
-    implementation "org.springframework.boot:spring-boot-starter:2.3.4.RELEASE"
+    implementation "org.springframework.boot:spring-boot-starter-web:2.3.4.RELEASE"
     implementation "org.springframework.boot:spring-boot-starter-security:${versionSpringSecurity}"
-    implementation "org.springframework:spring-webmvc:5.3.12"
-    implementation 'com.fasterxml.jackson.core:jackson-annotations:2.13.0'
 
     testImplementation 'org.junit.jupiter:junit-jupiter-api:5.7.0'
     testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.7.0'

@@ -24,7 +24,6 @@ public class AuthEntryPoint extends BasicAuthenticationEntryPoint {
 
     @Override
     public void commence(HttpServletRequest request, HttpServletResponse response, AuthenticationException authException) {
-
         if (authException != null) {
             handlerExceptionResolver.resolveException(request, response, null,
                     new GeneralException(ErrorDetail.of("OVP_00306", "Security failure", FORBIDDEN)));

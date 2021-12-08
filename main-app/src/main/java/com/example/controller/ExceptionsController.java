@@ -4,6 +4,7 @@ import com.example.exception.DownstreamSystemException;
 import com.example.exception.GeneralException;
 import com.example.exception.InvalidHeaderException;
 import com.example.web.exception.ErrorDetail;
+import com.example.web.exception.RandomException;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -32,5 +33,10 @@ public class ExceptionsController {
     public String testD()  {
         throw new DownstreamSystemException(
                 ErrorDetail.of("OVP_0000", "description error", HttpStatus.BAD_REQUEST), "description on DownstreamSystemException");
+    }
+
+    @GetMapping("/testE")
+    public String testE()  {
+        throw new RandomException("Random exception");
     }
 }

@@ -17,7 +17,6 @@ dependencies {
 	implementation project(":web-config")
 
 	implementation "org.springframework.boot:spring-boot-starter-web:${versionSpringBoot}"
-	implementation "org.springframework.boot:spring-boot-starter-security:${versionSpringBoot}"
 
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 }
