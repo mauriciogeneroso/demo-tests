@@ -1,10 +1,10 @@
 package com.example.properties;
 
-import com.example.config.actuator.ActuatorAppProperties;
+import com.example.config.actuator.ActuatorInfoProperties;
 import org.springframework.stereotype.Component;
 
 @Component
-public class AppProperties implements ActuatorAppProperties {
+public class AppProperties implements ActuatorInfoProperties {
 
     private LoggingProperties loggingProperties;
     private CassandraProperties cassandraProperties;
@@ -15,7 +15,7 @@ public class AppProperties implements ActuatorAppProperties {
     }
 
     @Override
-    public ActuatorAppProperties create() {
+    public ActuatorInfoProperties create() {
         return new AppProperties(new LoggingProperties(loggingProperties.getEncryptionFields()),
                 new CassandraProperties(cassandraProperties));
     }

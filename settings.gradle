@@ -2,7 +2,7 @@ rootProject.name = 'demo'
 
 include "main-app"
 
-def configModules = ['actuator-config']
+def configModules = ['actuator-config', 'web-config', 'wave-shared']
 
 configModules.forEach { module ->
     include ":${module}"

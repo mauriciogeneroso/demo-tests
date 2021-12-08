@@ -24,3 +24,15 @@ app:
         MVPD_DATA_HEADER: ${MVPD_DATA_HEADER_ENCRYPTION_KEY:abc}
         OAT: ${OAT_LOGGING_ENCRYPTION_KEY:abc}
         SYNACOR_CLOUD_ACCOUNT_ID: ${SYNACOR_CLOUD_ACCOUNT_ID_ENCRYPTION_KEY:abc}
+
+  basic-auth:
+    unsecured-endpoint-pattern: ^(?!.*(account)).*$
+    secured-endpoints:
+      - urlPattern: /account/entitlements/*
+        role: MALI_USER
+      - urlPattern: /account/entitlements
+        role: MALI_USER
+    users:
+      - username: mali-user
+        password: ${MALI_BASIC_AUTH_PASSWORD_ENTITLEMENTS:password}
+        role: MALI_USER
