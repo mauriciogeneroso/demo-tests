@@ -1,16 +1,14 @@
 plugins {
     id 'org.springframework.boot' version "${springBootVersion}"
-    id 'io.spring.dependency-management' version '1.0.11.RELEASE'
+    id 'io.spring.dependency-management' version "${springDependencyManagementVersion}"
     id 'java'
 }
 
 group = 'com.example'
-version = '0.0.1-SNAPSHOT'
 sourceCompatibility = '11'
 
 def commonJarConfigClosure = {
     archiveName = "${project.name}.jar"
-    //archiveName = "${project.name}-${project.version}.jar"
 }
 
 bootJar commonJarConfigClosure
