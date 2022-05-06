@@ -17,13 +17,17 @@ scmVersion {
     }
 }
 
-def getCurrentVersion(version, revision) {
+static def getCurrentVersion(version, revision) {
     return currentlyOnMainBranch() ? version : revision
 }
 
-def currentlyOnMainBranch() {
+static def currentlyOnMainBranch() {
     def commit = "git rev-parse HEAD".execute().text
     return "git branch -r --contains $commit".execute().text.contains("origin/main")
+}
+
+subprojects {
+    group = 'com.example'
 }
 
 allprojects {

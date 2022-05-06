@@ -1,9 +1,24 @@
+spring:
+  profiles:
+    active: local
+  jackson:
+    date-format: "yyyy-MM-dd HH:mm:ssZ"
+    serialization:
+      write-dates-as-timestamps: false
+
 server:
   servlet:
     context-path: /demo
 
-springfox:
-  documentation:
-    swagger:
-      v2:
-        path: /v2/api-docs
+management:
+  endpoints:
+    web:
+      base-path: /private
+      exposure.include: health,info
+  info:
+    java:
+      enabled: true
+
+springdoc:
+  api-docs:
+    path: /openapi

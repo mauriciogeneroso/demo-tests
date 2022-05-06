@@ -1,17 +1,31 @@
 plugins {
     id 'org.springframework.boot' version "${springBootVersion}"
     id 'io.spring.dependency-management' version "${springDependencyManagementVersion}"
+    id "com.gorylenko.gradle-git-properties" version "${gitPropertiesVersion}"
     id 'java'
 }
 
-group = 'com.example'
-sourceCompatibility = '11'
+sourceCompatibility = JavaVersion.VERSION_11
 
 def commonJarConfigClosure = {
     archiveName = "${project.name}.jar"
 }
 
 bootJar commonJarConfigClosure
+
+// Used by actuator on /info
+springBoot {
+    buildInfo {
+        properties {
+            version = project.version
+        }
+    }
+}
+
+gitProperties {
+    dateFormat = "yyyy-MM-dd HH:mm:ssZ"
+    dateFormatTimeZone = "UTC"
+}
 
 repositories {
     mavenCentral()
@@ -21,8 +35,8 @@ dependencies {
     implementation project(":demo-library")
 
     implementation 'org.springframework.boot:spring-boot-starter-web'
-    implementation "io.springfox:springfox-boot-starter:${swaggerVersion}"
-    implementation "io.springfox:springfox-swagger-ui:${swaggerUiVersion}"
+    implementation 'org.springframework.boot:spring-boot-starter-actuator'
+    implementation "org.springdoc:springdoc-openapi-ui:${openApiVersion}"
 
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
 }
