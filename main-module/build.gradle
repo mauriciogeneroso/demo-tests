@@ -1,5 +1,5 @@
 plugins {
-    id 'org.springframework.boot' version "${springVersion}"
+    id 'org.springframework.boot' version "${springBootVersion}"
     id 'io.spring.dependency-management' version '1.0.11.RELEASE'
     id 'java'
 }
@@ -23,6 +23,9 @@ dependencies {
     implementation project(":demo-library")
 
     implementation 'org.springframework.boot:spring-boot-starter-web'
+    implementation "io.springfox:springfox-boot-starter:${swaggerVersion}"
+    implementation "io.springfox:springfox-swagger-ui:${swaggerUiVersion}"
+
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
 }
 
