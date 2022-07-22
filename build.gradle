@@ -1,5 +1,6 @@
 plugins {
     id 'pl.allegro.tech.build.axion-release' version "${axionPluginVersion}"
+    id "io.freefair.lombok" version "${lombokPluginVersion}" apply false
 }
 
 scmVersion {
