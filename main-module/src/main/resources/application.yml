@@ -6,9 +6,9 @@ spring:
     serialization:
       write-dates-as-timestamps: false
 
-server:
-  servlet:
-    context-path: /demo
+#server:
+#  servlet:
+#    context-path:
 
 management:
   endpoints:
