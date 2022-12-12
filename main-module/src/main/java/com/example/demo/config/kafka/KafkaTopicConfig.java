@@ -14,19 +14,19 @@ import java.util.Map;
 public class KafkaTopicConfig {
 
     public static final String TOPIC_NAME = "topic-test";
-
-    @Value(value = "${kafka.bootstrapAddress}")
-    private String bootstrapAddress;
-
-    @Bean
-    public KafkaAdmin kafkaAdmin() {
-        Map<String, Object> configs = new HashMap<>();
-        configs.put(AdminClientConfig.BOOTSTRAP_SERVERS_CONFIG, bootstrapAddress);
-        return new KafkaAdmin(configs);
-    }
-
-    @Bean
-    public NewTopic topicTest() {
-        return new NewTopic(TOPIC_NAME, 1, (short) 1);
-    }
+//
+//    @Value(value = "${kafka.bootstrapAddress}")
+//    private String bootstrapAddress;
+//
+//    @Bean
+//    public KafkaAdmin kafkaAdmin() {
+//        Map<String, Object> configs = new HashMap<>();
+//        configs.put(AdminClientConfig.BOOTSTRAP_SERVERS_CONFIG, bootstrapAddress);
+//        return new KafkaAdmin(configs);
+//    }
+//
+//    @Bean
+//    public NewTopic topicTest() {
+//        return new NewTopic(TOPIC_NAME, 1, (short) 1);
+//    }
 }

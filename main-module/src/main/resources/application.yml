@@ -25,4 +25,4 @@ springdoc:
 
 
 kafka:
-  bootstrapAddress: http://localhost:29092
+  bootstrapAddress: http://localhost:9092
