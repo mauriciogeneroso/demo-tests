@@ -52,6 +52,7 @@ task cucumber {
                     '--plugin', 'pretty',
                     '--plugin', 'html:reports/report.html',
                     '--glue', 'com.test',
+                    '--threads', '10',
                     'classpath:features']
         }
     }
