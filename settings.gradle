@@ -1,2 +1,4 @@
 rootProject.name = 'demo-tests'
 include 'main-module'
+include 'functiona-tests'
+

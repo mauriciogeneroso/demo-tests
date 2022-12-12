@@ -1,0 +1,15 @@
+spring:
+  jmx:
+    enable: false
+  application:
+    name: parallel-ft
+  profiles:
+    active: local
+
+service:
+  host: http://localhost:8080
+  context-path: /demo
+
+wiremock:
+  host: localhost
+  port: 8180

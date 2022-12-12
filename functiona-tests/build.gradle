@@ -1,0 +1,61 @@
+plugins {
+    id 'org.springframework.boot' version '2.7.5'
+    id 'io.spring.dependency-management' version '1.1.0'
+    id "io.freefair.lombok"
+    id 'java'
+}
+
+ext {
+    cucumberVersion = '7.8.1'
+    jacksonDataBinding = '2.13.4'
+    wiremockStandalone = '2.34.0'
+    googleGuavaVersion = '31.1-jre'
+    prometheusScraperVersion = '0.23.0.Final'
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    testImplementation project(":main-module")
+
+    testImplementation "io.cucumber:cucumber-spring:${cucumberVersion}"
+    testImplementation "io.cucumber:cucumber-java:${cucumberVersion}"
+    testImplementation "io.cucumber:cucumber-junit:${cucumberVersion}"
+
+    testImplementation "com.fasterxml.jackson.core:jackson-databind:${jacksonDataBinding}"
+    implementation "com.fasterxml.jackson.datatype:jackson-datatype-jsr310:${jacksonDataBinding}"
+    testImplementation "org.hawkular.agent:prometheus-scraper:${prometheusScraperVersion}"
+
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    testImplementation "com.google.guava:guava:31.1-jre"
+    testImplementation "com.github.tomakehurst:wiremock-jre8-standalone:${wiremockStandalone}"
+}
+
+configurations {
+    cucumberRuntime {
+        extendsFrom testImplementation
+    }
+}
+
+task cucumber {
+    def profile = findProperty("spring.profiles.active") ?: "local"
+    dependsOn processTestResources, compileTestJava
+
+    doLast {
+        javaexec {
+            systemProperties = ['spring.profiles.active': profile]
+            main = "io.cucumber.core.cli.Main"
+            classpath = project.sourceSets.test.runtimeClasspath
+            args = ['--tags', 'not @ignore',
+                    '--plugin', 'pretty',
+                    '--plugin', 'html:reports/report.html',
+                    '--glue', 'com.test',
+                    'classpath:features']
+        }
+    }
+}
+
+bootJar.enabled = false
+jar.enabled = false
