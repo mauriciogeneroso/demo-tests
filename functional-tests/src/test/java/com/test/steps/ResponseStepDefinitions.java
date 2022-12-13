@@ -21,6 +21,8 @@ public class ResponseStepDefinitions {
 
     @Then("the response status code should be {int}")
     public void theResponseCode(int expectedResponseCode) {
+        System.out.format("Thread ID %d - check response status. Obj: %s\n",Thread.currentThread().getId(),
+                scenarioState.getActualResponse());
         assertThat(scenarioState.getActualResponse().statusCode()).isEqualTo(expectedResponseCode);
     }
 
