@@ -2,11 +2,7 @@ package com.test.steps;
 
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
-import org.springframework.context.annotation.Scope;
 
-import static io.cucumber.spring.CucumberTestContext.SCOPE_CUCUMBER_GLUE;
-
-//@Scope(SCOPE_CUCUMBER_GLUE)
 public class StepDefs {
 
     private String testVariable;
