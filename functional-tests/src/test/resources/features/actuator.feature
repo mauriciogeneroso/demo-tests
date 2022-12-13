@@ -8,6 +8,15 @@ Feature: Checking Identity app actuator endpoints return expected outputs
     And health components should contain the status UP:
       | diskSpace          |
 
+  Scenario: When application is healthy, but downstream is unhealthy, returns "DOWN"
+    Given a private endpoint PRIVATE_HEALTH_CHECK is prepared
+    And downstream is primed to return 500 response status code
+    When the request is sent
+    Then the response status code should be 503
+    And the health response body of the message should have the status "DOWN"
+    And health components should contain the status UP:
+      | diskSpace          |
+
   Scenario: Return correct app information when calling private/info
     Given a private endpoint PRIVATE_INFO is prepared
     When the request is sent
