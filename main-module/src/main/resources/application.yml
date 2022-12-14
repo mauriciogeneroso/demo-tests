@@ -17,7 +17,7 @@ management:
   endpoints:
     web:
       base-path: /private
-      exposure.include: info,health,prometheus
+      exposure.include: info,prometheus
       path-mapping.prometheus: /metrics
   info:
     java:

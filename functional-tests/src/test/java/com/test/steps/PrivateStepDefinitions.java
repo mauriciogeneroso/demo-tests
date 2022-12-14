@@ -3,6 +3,8 @@ package com.test.steps;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.test.client.PrivateHealthRequestTemplate;
+import com.test.client.PrivateInfoRequestTemplate;
 import com.test.client.RequestTemplate;
 import com.test.client.model.Endpoint;
 import com.test.client.model.JsonMapper;
@@ -12,6 +14,7 @@ import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 
 import java.util.List;
 import java.util.Map;
@@ -27,17 +30,29 @@ public class PrivateStepDefinitions {
     private final JsonMapper jsonMapper;
     private final ObjectMapper objectMapper;
 
+    @Value("${service.host}")
+    String host;
+    @Value("${service.context-path:}")
+    String contextPath;
+
     @Given("a private endpoint {} is prepared")
     public void thePrivateEndpointIsPrepared(Endpoint endpoint) {
-        System.out.format("Thread ID %d - define private endpoint %s.\n",Thread.currentThread().getId(), endpoint);
-        RequestTemplate requestTemplate = getRequestTemplate(endpoint);
-        System.out.format("Thread ID %d - set template %s.\n",Thread.currentThread().getId(), requestTemplate);
+        System.out.format("Thread ID %d - define private endpoint %s.\n", Thread.currentThread().getId(), endpoint);
+        RequestTemplate requestTemplate = getTemplate(endpoint);
+        System.out.format("Thread ID %d - set template %s.\n", Thread.currentThread().getId(), requestTemplate);
         scenarioState.setRequestTemplate(requestTemplate);
+    }
+
+    private RequestTemplate getTemplate(Endpoint endpoint) {
+        return switch (endpoint) {
+            case PRIVATE_HEALTH_CHECK -> new PrivateHealthRequestTemplate(host, contextPath);
+            case PRIVATE_INFO -> new PrivateInfoRequestTemplate(host, contextPath);
+        };
     }
 
     @Then("the health response body of the message should have the status {string}")
     public void theHealthResponseBodyOfTheMessageShouldHaveTheStatus(String expectedResponseBody) {
-        System.out.format("Thread ID %d - check response health body.\n",Thread.currentThread().getId());
+        System.out.format("Thread ID %d - check response health body.\n", Thread.currentThread().getId());
         var response = scenarioState.getActualResponse();
         var responseObj = jsonMapper.fromJson(response.body(), PrivateHealthResponse.class);
         assertThat(responseObj.status()).isEqualTo(expectedResponseBody);
@@ -45,7 +60,7 @@ public class PrivateStepDefinitions {
 
     @Then("health components should contain the status {word}:")
     public void healthComponentsShouldContainTheStatus(String status, List<String> componentNames) throws JsonProcessingException {
-        System.out.format("Thread ID %d - check health components.\n",Thread.currentThread().getId());
+        System.out.format("Thread ID %d - check health components.\n", Thread.currentThread().getId());
         JsonNode jsonResponse = objectMapper.readTree(scenarioState.getActualResponseBody());
         JsonNode components = jsonResponse.get("components");
 
@@ -59,7 +74,7 @@ public class PrivateStepDefinitions {
 
     @Then("it should return (.*) information containing the following keys and values:$")
     public void theInfoContains(String key, Map<String, String> expectedInfo) throws JsonProcessingException {
-        System.out.format("Thread ID %d - check response build info.\n",Thread.currentThread().getId());
+        System.out.format("Thread ID %d - check response build info.\n", Thread.currentThread().getId());
         JsonNode jsonResponse = objectMapper.readTree(scenarioState.getActualResponseBody());
         JsonNode node = key.equals("java") ? jsonResponse.get("app") : jsonResponse;
 
@@ -71,7 +86,7 @@ public class PrivateStepDefinitions {
 
     @Then("the response body contains:")
     public void theResponseBodyContains(List<String> keys) throws JsonProcessingException {
-        System.out.format("Thread ID %d - check if response body contains.\n",Thread.currentThread().getId());
+        System.out.format("Thread ID %d - check if response body contains.\n", Thread.currentThread().getId());
         JsonNode jsonResponse = objectMapper.readTree(scenarioState.getActualResponseBody());
         keys.forEach(keyName -> assertTrue(jsonResponse.has(keyName)));
     }

@@ -37,7 +37,7 @@ public class WiremockUtil {
         wiremockClient.editStubMapping(existingStubMapping);
     }
 
-    public ResponseDefinitionBuilder buildErrorResponse(int statusCode) {
+    public ResponseDefinitionBuilder buildWithStatus(int statusCode) {
         return aResponse().withStatus(statusCode);
     }
 

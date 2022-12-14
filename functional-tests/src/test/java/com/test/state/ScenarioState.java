@@ -17,6 +17,8 @@ public class ScenarioState {
     private RequestTemplate requestTemplate;
     private HttpResponse<String> actualResponse;
 
+    private String requestId;
+
     public RequestTemplate getRequestTemplate() {
         if (requestTemplate == null) {
             throw new RuntimeException("The request template wasn't provided.");
@@ -35,5 +37,9 @@ public class ScenarioState {
 
     public String getActualResponseBody() {
         return getActualResponse().body();
+    }
+
+    public String getRequestId() {
+        return requestId;
     }
 }

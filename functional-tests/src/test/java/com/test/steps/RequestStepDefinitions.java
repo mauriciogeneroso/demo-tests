@@ -25,6 +25,11 @@ public class RequestStepDefinitions {
         scenarioState.setRequestTemplate(requestTemplate);
     }
 
+    @Given("request id {word} should be present")
+    public void includeRequestId(String requestId) {
+        scenarioState.setRequestId(requestId);
+    }
+
     @Given("an endpoint {} is prepared with body {word}")
     public void thePrivateEndpointIsPreparedWithBody(Endpoint endpoint, String body) {
         RequestTemplate requestTemplate = getRequestTemplate(endpoint);
@@ -34,7 +39,10 @@ public class RequestStepDefinitions {
 
     @When("the request is sent")
     public void theEndpointReceivesARequest() {
-        HttpResponse<String> response = client.execute(scenarioState.getRequestTemplate());
+        var template = scenarioState.getRequestTemplate();
+        template.withHeader("X-SkyInt-RequestId", scenarioState.getRequestId());
+
+        HttpResponse<String> response = client.execute(template);
         scenarioState.setActualResponse(response);
     }
 
